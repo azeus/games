@@ -1,35 +1,29 @@
 import random
 
 def play():
-    player = input("play rock-paper-scissor-lizard-spock! choose r for rock, p for paper, s for scissor, l for lizard and sp for spock!\n")
-    computer = random.choice(['r','p','s','l','sp'])
+    while True:
+        player = input(
+            "Play Rock-Paper-Scissor-Lizard-Spock! Choose:\n"
+            "r for Rock, p for Paper, s for Scissor, l for Lizard, sp for Spock:\n> "
+        )
+        computer = random.choice(['r', 'p', 's', 'l', 'sp'])
+        if player == computer:
+            print(f"You chose: {player}, computer chose: {computer}. It's a tie! Play again.\n")
+        elif player_wins(player, computer):
+            print(f"You chose: {player}, computer chose: {computer}. Congratulations, you won!\n")
+        else:
+            print(f"You chose: {player}, computer chose: {computer}. You lost! Try again.\n")
+        if input("Do you want to play again? (y/n):\n> ").lower() != 'y':
+            break
 
-    if player == computer:
-        return 'you chose : {p} and computer chose :{c} It is a Tie, Play again!\n'.format(p=player,c=computer)
-
-    if player_wins(player, computer):
-        return 'you chose : {p} and computer chose :{c} Congratulations, You won! Play again\n'.format(p=player,c=computer)
-    
-    return 'you chose : {p} and computer chose :{c} You lost!, Play again!\n'.format(p=player,c=computer)
-
-'''
-scissors > paper
-paper > rock
-rock > lizard
-lizard > spock
-spock > scissors
-scissors > lizard
-lizard > paper
-paper > spock
-spock > rock
-rock > scissors
-'''
 def player_wins(player1, player2):
-    if (player1 == 's' and player2 == 'p') or (player1 == 'p' and player2 == 'r')\
-    or (player1 == 'r' and player2 == 'l') or (player1 == 'l' and player2 == 'sp')\
-    or (player1 == 'sp' and player2 == 's') or (player1 == 's' and player2 == 'l')\
-    or (player1 == 'l' and player2 == 'p') or (player1 == 'p' and player2 == 'sp')\
-    or (player1 == 'sp' and player2 == 'r') or (player1 == 'r' and player2 == 's'):
-        return True
+    winning_combinations = {
+        's': ['p', 'l'],
+        'p': ['r', 'sp'],
+        'r': ['l', 's'],
+        'l': ['sp', 'p'],
+        'sp': ['s', 'r']
+    }
+    return player2 in winning_combinations.get(player1, [])
 
-print(play())
+play()

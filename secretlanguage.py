@@ -13,31 +13,33 @@ the add-on phrase
 
 VOWELS = 'aeiou'
 
-print('enter your message\n')
-message = input('>')
+print('Enter your message:')
+message = input('> ')
 lang = ''
+
 for word in message.split():
-    wasUpper = word.isupper()
-    wasTitle = word.istitle()
+    was_upper = word.isupper()
+    was_title = word.istitle()
 
     word = word.lower()
-
-    if len(word)> 0 and not word[0] in VOWELS:
+    consonant = ''
+    if len(word) > 0 and word[0] not in VOWELS:
         consonant = word[0]
         word = word[1:]
-    if consonant != '':
+
+    if consonant:
         word += consonant + 'bub'
     else:
         word += 'bub'
-    
-    if wasUpper:
+
+    if was_upper:
         word = word.upper()
-    if wasTitle:
+    if was_title:
         word = word.title()
 
-    lang += word 
-print(lang)
+    lang += word + ' '
 
+print("Translated message:", lang.strip())
 
     
 
